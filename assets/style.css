@@ -183,3 +183,25 @@ main.story, main.page { max-width: 740px; margin: 0 auto; padding: 30px 24px 10p
 
 /* 시범운영 표시 */
 .preview-bar { background: var(--green); color: var(--paper); text-align: center; font-size: 13px; padding: 7px 16px; letter-spacing: 0.5px; }
+
+/* 사진 */
+.photo { margin: 0 0 24px; }
+.photo img { display: block; width: 100%; height: auto; background: var(--tint); }
+.photo.portrait img { width: auto; max-width: 100%; max-height: 560px; margin: 0 auto; }
+.photo figcaption { font-size: 13px; line-height: 1.6; color: var(--muted); padding: 7px 0 8px; border-bottom: 1px solid var(--rule); }
+.photo figcaption a { color: inherit; text-decoration: underline; text-underline-offset: 2px; }
+.hero-main .photo { margin-bottom: 18px; }
+.thumb { display: block; width: 100%; aspect-ratio: 3 / 2; object-fit: cover; margin-bottom: 12px; background: var(--tint); }
+.hero-main .photo:not(.portrait) img { aspect-ratio: 16 / 9; object-fit: cover; }
+
+/* 기사 속 논평·표 */
+.opinion { margin: 8px 0 26px; padding: 18px 22px 6px; background: var(--tint); border-left: 4px solid var(--green); }
+.opinion .label { color: var(--green); }
+.opinion h2 { font-family: var(--serif); font-size: 21px; line-height: 1.45; margin: 0 0 10px; }
+.body .opinion p { font-size: 16px; line-height: 1.85; margin-bottom: 14px; }
+.table-wrap { overflow-x: auto; margin: 4px 0 26px; }
+table.data { width: 100%; border-collapse: collapse; font-size: 15px; line-height: 1.6; border-top: 2px solid var(--green); }
+table.data caption { text-align: left; font-weight: 700; color: var(--green); font-size: 14px; padding-bottom: 6px; }
+table.data th, table.data td { text-align: left; vertical-align: top; padding: 8px 10px; border-bottom: 1px solid var(--rule); }
+table.data thead th { background: var(--tint); }
+.bottom div:only-child { grid-column: 1 / -1; }
