@@ -205,3 +205,68 @@ table.data caption { text-align: left; font-weight: 700; color: var(--green); fo
 table.data th, table.data td { text-align: left; vertical-align: top; padding: 8px 10px; border-bottom: 1px solid var(--rule); }
 table.data thead th { background: var(--tint); }
 .bottom div:only-child { grid-column: 1 / -1; }
+
+/* ───────── 1면 인트로 (7초) ─────────
+   0.0–1.0 금색 괘선과 날짜 · 0.9–2.4 제호 · 2.4 사시 · 3.4 제호가 위로 물러나고 머리기사
+   4.6–5.8 오늘의 요약 4개 · 6.35–7.0 가운데로 접히며 1면이 열린다 */
+#intro { display: none; }
+html.intro-on, html.intro-on body { overflow: hidden; }
+html.intro-on #intro {
+  --i-bg: #12231d; --i-bg2: #1f3b33; --i-cream: #f4efe3; --i-gold: #cfae67; --i-dim: rgba(244,239,227,.62);
+  display: flex; position: fixed; inset: 0; z-index: 100; cursor: pointer; overflow: hidden;
+  flex-direction: column; align-items: center; justify-content: center; padding: 24px 16px;
+  background: radial-gradient(120% 90% at 50% 40%, var(--i-bg2) 0%, var(--i-bg) 70%);
+  color: var(--i-cream); font-family: var(--sans); text-align: center;
+  clip-path: inset(0 0 0 0);
+}
+/* 개별 규칙의 animation 단축 속성이 채움 방식을 지우지 않도록 !important 로 고정한다.
+   장면은 첫 화면이 그려질 때 바로 시작하고, 7초는 intro.js 가 진행 막대 시작 시점부터 잰다 */
+#intro * { animation-fill-mode: both !important; }
+#intro::before { /* 종이 결 */
+  content: ""; position: absolute; inset: 0; pointer-events: none; opacity: .07;
+  background-image: repeating-linear-gradient(0deg, #fff 0 1px, transparent 1px 3px);
+}
+#intro .i-rule { position: absolute; left: 6%; right: 6%; height: 1px; background: var(--i-gold); transform: scaleX(0); animation: i-rule .9s cubic-bezier(.2,.7,.2,1) .15s; }
+#intro .i-rule.t { top: 9%; } #intro .i-rule.b { bottom: 9%; }
+#intro .i-date { position: absolute; top: calc(9% + 12px); left: 0; right: 0; font-size: 12px; letter-spacing: 3px; color: var(--i-dim); animation: i-date 3.25s linear .45s; }
+#intro .i-foot { position: absolute; bottom: calc(9% + 12px); left: 0; right: 0; font-size: 11px; letter-spacing: 3px; color: var(--i-dim); animation: i-fade .7s cubic-bezier(.2,.7,.2,1) .6s; }
+
+#intro .i-plate { position: relative; z-index: 1; animation: i-lift .8s cubic-bezier(.65,0,.25,1) 3.3s; }
+#intro .i-name { font-family: var(--serif); font-weight: 900; font-size: clamp(46px, 11vw, 124px); letter-spacing: .08em; line-height: 1.05; white-space: nowrap; }
+#intro .i-name span { display: inline-block; animation: i-drop .75s cubic-bezier(.2,.7,.2,1); }
+#intro .i-en { margin-top: 14px; font-size: clamp(11px, 1.6vw, 15px); letter-spacing: 9px; color: var(--i-gold); animation: i-track 1.1s cubic-bezier(.2,.7,.2,1) 1.8s; }
+#intro .i-motto { display: inline-block; margin-top: 18px; padding: 8px 4px 0; border-top: 3px double rgba(207,174,103,.7); font-family: var(--serif); font-size: clamp(14px, 2vw, 19px); color: var(--i-dim); animation: i-up .7s cubic-bezier(.2,.7,.2,1) 2.35s; }
+
+#intro .i-news { position: absolute; left: 0; right: 0; top: 50%; padding: 0 16px; transform: translateY(-38%); z-index: 1; }
+#intro .i-kicker { font-size: 12px; font-weight: 700; letter-spacing: 4px; color: var(--i-gold); animation: i-fade .5s cubic-bezier(.2,.7,.2,1) 3.75s; }
+#intro .i-head { margin: 10px auto 0; max-width: 18em; font-family: var(--serif); font-weight: 900; font-size: clamp(28px, 6vw, 64px); line-height: 1.22; letter-spacing: -.01em; }
+#intro .i-head span { display: block; animation: i-wipe .75s cubic-bezier(.2,.7,.2,1); }
+#intro .i-briefs { list-style: none; margin: clamp(22px, 4vh, 40px) auto 0; padding: 0; max-width: 1040px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; text-align: left; }
+#intro .i-briefs li { border-top: 2px solid var(--i-gold); padding: 10px 2px 0; animation: i-up .55s cubic-bezier(.2,.7,.2,1); }
+#intro .i-briefs small { display: block; font-size: 11px; font-weight: 700; letter-spacing: 2px; color: var(--i-gold); }
+#intro .i-briefs b { display: block; margin-top: 3px; font-family: var(--serif); font-size: clamp(14px, 1.7vw, 18px); line-height: 1.4; }
+
+#intro .i-skip { position: absolute; right: 16px; bottom: 16px; z-index: 2; display: flex; align-items: center; gap: 10px; padding: 7px 12px; border: 1px solid rgba(244,239,227,.35); border-radius: 999px; background: transparent; color: var(--i-cream); font: 500 12px var(--sans); letter-spacing: 1px; cursor: pointer; }
+#intro .i-skip:hover, #intro .i-skip:focus-visible { background: rgba(244,239,227,.12); outline: none; }
+#intro .i-bar { position: absolute; left: 0; bottom: 0; height: 3px; width: 100%; background: var(--i-gold); transform-origin: 0 50%; transform: scaleX(0); animation: i-bar 7s linear; }
+
+#intro.leave { animation: i-close .65s cubic-bezier(.7,0,.3,1) forwards; }
+#intro.leave * { animation-play-state: paused !important; }
+
+@keyframes i-rule { to { transform: scaleX(1); } }
+@keyframes i-date { 0% { opacity: 0; } 22% { opacity: 1; } 84% { opacity: 1; } 100% { opacity: 0; } } /* 제호가 올라오면 날짜는 비켜 준다 */
+@keyframes i-fade { from { opacity: 0; } to { opacity: 1; } }
+@keyframes i-up { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+@keyframes i-drop { from { opacity: 0; transform: translateY(-.5em) scale(1.15); filter: blur(10px); } to { opacity: 1; transform: none; filter: none; } }
+@keyframes i-track { from { opacity: 0; letter-spacing: 28px; } to { opacity: 1; letter-spacing: 9px; } }
+@keyframes i-lift { to { transform: translateY(calc(-50vh + 120px)) scale(.42); } }
+@keyframes i-wipe { from { opacity: .2; clip-path: inset(0 100% 0 0); transform: translateX(-12px); } to { opacity: 1; clip-path: inset(0 0 0 0); transform: none; } }
+@keyframes i-bar { to { transform: scaleX(1); } }
+@keyframes i-close { 0% { clip-path: inset(0 0 0 0); } 100% { clip-path: inset(50% 0 50% 0); } }
+
+@media (max-width: 720px) {
+  #intro .i-briefs { grid-template-columns: 1fr 1fr; gap: 14px 12px; }
+  #intro .i-news { transform: translateY(-30%); }
+  @keyframes i-lift { to { transform: translateY(calc(-50vh + 104px)) scale(.5); } }
+}
+@media (prefers-reduced-motion: reduce) { html.intro-on #intro { display: none; } html.intro-on, html.intro-on body { overflow: auto; } }
