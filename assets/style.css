@@ -90,6 +90,11 @@ main.front { max-width: 1180px; margin: 0 auto; padding: 28px 24px 10px; }
 .digest li .label { grid-column: 1; grid-row: 1; }
 .digest li b { grid-column: 1; grid-row: 2; font-family: var(--serif); font-size: 16px; line-height: 1.45; }
 .digest li p { grid-column: 2; grid-row: 1 / span 2; font-size: 15px; margin: 0; }
+.briefing .bf-cat { font-size: 14px; letter-spacing: 2px; color: var(--green, #2f5d50); margin: 18px 0 4px; }
+.briefing ul { list-style: none; margin: 0; padding: 0; }
+.briefing li { padding: 9px 0 9px 22px; border-bottom: 1px dotted var(--rule); font-size: 15px; line-height: 1.75; position: relative; }
+.briefing li::before { content: "☞"; position: absolute; left: 0; color: var(--gold, #a8842c); }
+.briefing .bf-local { display: block; font-size: 13px; color: var(--green, #2f5d50); margin-top: 3px; }
 .src { font-size: 12px; color: var(--green); text-decoration: underline; margin-left: 4px; }
 
 .editorial { background: var(--tint); border-top: 4px solid var(--green); padding: 30px 36px; margin-top: 44px; }
